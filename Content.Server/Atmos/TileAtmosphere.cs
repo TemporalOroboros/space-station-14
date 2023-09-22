@@ -10,7 +10,7 @@ namespace Content.Server.Atmos
     ///     You shouldn't use this directly, use <see cref="AtmosphereSystem"/> instead.
     /// </summary>
     [Access(typeof(AtmosphereSystem), typeof(GasTileOverlaySystem), typeof(AtmosDebugOverlaySystem))]
-    public sealed class TileAtmosphere : IGasMixtureHolder
+    public sealed class TileAtmosphere
     {
         [ViewVariables]
         public int ArchivedCycle;
@@ -93,12 +93,6 @@ namespace Content.Server.Atmos
 
         [ViewVariables]
         public float[]? MolesArchived;
-
-        GasMixture IGasMixtureHolder.Air
-        {
-            get => Air ?? new GasMixture(Atmospherics.CellVolume){ Temperature = Temperature };
-            set => Air = value;
-        }
 
         [ViewVariables]
         public float MaxFireTemperatureSustained { get; set; }

@@ -153,9 +153,9 @@ namespace Content.Server.Atmos.EntitySystems
 
                 if (gasTank.Air != null)
                 {
-                    _atmosphereSystem.React(gasTank.Air, gasTank);
+                    _atmosphereSystem.React(gasTank.Air, uid);
                 }
-                CheckStatus(gasTank);
+                CheckStatus(uid, gasTank);
                 if (_ui.IsUiOpen(uid, SharedGasTankUiKey.Key))
                 {
                     UpdateUserInterface(gasTank);
@@ -165,7 +165,7 @@ namespace Content.Server.Atmos.EntitySystems
 
         private void ReleaseGas(EntityUid uid, GasTankComponent component)
         {
-            var removed = RemoveAirVolume(component, component.ValveOutputRate * TimerDelay);
+            var removed = RemoveAirVolume(uid, component.ValveOutputRate * TimerDelay, component);
             var environment = _atmosphereSystem.GetContainingMixture(uid, false, true);
             if (environment != null)
             {
@@ -189,21 +189,21 @@ namespace Content.Server.Atmos.EntitySystems
             }
         }
 
-        public GasMixture? RemoveAir(GasTankComponent component, float amount)
+        public GasMixture? RemoveAir(EntityUid uid, float amount, GasTankComponent component)
         {
             var gas = component.Air?.Remove(amount);
-            CheckStatus(component);
+            CheckStatus(uid, component);
             return gas;
         }
 
-        public GasMixture RemoveAirVolume(GasTankComponent component, float volume)
+        public GasMixture RemoveAirVolume(EntityUid uid, float volume, GasTankComponent component)
         {
             if (component.Air == null)
                 return new GasMixture(volume);
 
             var molesNeeded = component.OutputPressure * volume / (Atmospherics.R * component.Air.Temperature);
 
-            var air = RemoveAir(component, molesNeeded);
+            var air = RemoveAir(uid, molesNeeded, component);
 
             if (air != null)
                 air.Volume = volume;
@@ -274,13 +274,13 @@ namespace Content.Server.Atmos.EntitySystems
                 : null;
         }
 
-        public void AssumeAir(GasTankComponent component, GasMixture giver)
+        public void AssumeAir(EntityUid uid, GasMixture giver, GasTankComponent component)
         {
             _atmosphereSystem.Merge(component.Air, giver);
-            CheckStatus(component);
+            CheckStatus(uid, component);
         }
 
-        public void CheckStatus(GasTankComponent component)
+        public void CheckStatus(EntityUid uid, GasTankComponent component)
         {
             if (component.Air == null)
                 return;
@@ -292,7 +292,7 @@ namespace Content.Server.Atmos.EntitySystems
                 // Give the gas a chance to build up more pressure.
                 for (var i = 0; i < 3; i++)
                 {
-                    _atmosphereSystem.React(component.Air, component);
+                    _atmosphereSystem.React(component.Air, uid);
                 }
 
                 pressure = component.Air.Pressure;

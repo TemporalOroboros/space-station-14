@@ -244,7 +244,7 @@ public sealed partial class CryoPodSystem: SharedCryoPodSystem
         if (!TryComp(uid, out CryoPodAirComponent? cryoPodAir))
             return;
 
-        _atmosphereSystem.React(cryoPodAir.Air, portNode);
+        _atmosphereSystem.React(cryoPodAir.Air, uid);
 
         if (portNode.NodeGroup is PipeNet {NodeCount: > 1} net)
         {

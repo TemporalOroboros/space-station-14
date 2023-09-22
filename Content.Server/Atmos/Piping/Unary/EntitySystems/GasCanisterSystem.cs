@@ -161,7 +161,7 @@ public sealed class GasCanisterSystem : EntitySystem
 
     private void OnCanisterUpdated(EntityUid uid, GasCanisterComponent canister, AtmosDeviceUpdateEvent args)
     {
-        _atmos.React(canister.Air, canister);
+        _atmos.React(canister.Air, uid);
 
         if (!TryComp<NodeContainerComponent>(uid, out var nodeContainer)
             || !TryComp<AppearanceComponent>(uid, out var appearance))

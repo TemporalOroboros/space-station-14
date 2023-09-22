@@ -4,7 +4,7 @@ using Robust.Shared.Audio;
 namespace Content.Server.Atmos.Piping.Unary.Components
 {
     [RegisterComponent]
-    public sealed partial class GasCanisterComponent : Component, IGasMixtureHolder
+    public sealed partial class GasCanisterComponent : Component
     {
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("port")]

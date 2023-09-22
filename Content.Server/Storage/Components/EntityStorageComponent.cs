@@ -5,7 +5,7 @@ using Robust.Shared.GameStates;
 namespace Content.Server.Storage.Components;
 
 [RegisterComponent]
-public sealed partial class EntityStorageComponent : SharedEntityStorageComponent, IGasMixtureHolder
+public sealed partial class EntityStorageComponent : SharedEntityStorageComponent
 {
     /// <summary>
     ///     Gas currently contained in this entity storage.

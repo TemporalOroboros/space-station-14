@@ -60,7 +60,7 @@ namespace Content.Server.Atmos.Reactions
         /// </summary>
         [DataField("effects")] private List<IGasReactionEffect> _effects = new();
 
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem)
+        public ReactionResult React<THolder>(GasMixture mixture, THolder? holder, AtmosphereSystem atmosphereSystem)
         {
             var result = ReactionResult.NoReaction;
 

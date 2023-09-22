@@ -17,7 +17,7 @@ namespace Content.Server.Atmos.Reactions
 
         [DataField("molesPerUnit")] public float MolesPerUnit { get; private set; } = 1;
 
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem)
+        public ReactionResult React<THolder>(GasMixture mixture, THolder? holder, AtmosphereSystem atmosphereSystem)
         {
             // If any of the prototypes is invalid, we do nothing.
             if (string.IsNullOrEmpty(Reagent))

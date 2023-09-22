@@ -139,7 +139,7 @@ public sealed class InternalsSystem : EntitySystem
         if (AreInternalsWorking(component))
         {
             var gasTank = Comp<GasTankComponent>(component.GasTankEntity!.Value);
-            args.Gas = _gasTank.RemoveAirVolume(gasTank, Atmospherics.BreathVolume);
+            args.Gas = _gasTank.RemoveAirVolume(component.GasTankEntity!.Value, Atmospherics.BreathVolume, gasTank);
             // TODO: Should listen to gas tank updates instead I guess?
             _alerts.ShowAlert(uid, AlertType.Internals, GetSeverity(component));
         }

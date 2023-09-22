@@ -11,7 +11,7 @@ namespace Content.Server.Atmos.Reactions;
 [UsedImplicitly]
 public sealed partial class FrezonProductionReaction : IGasReactionEffect
 {
-    public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem)
+    public ReactionResult React<THolder>(GasMixture mixture, THolder? holder, AtmosphereSystem atmosphereSystem)
     {
         var initialN2 = mixture.GetMoles(Gas.Nitrogen);
         var initialOxy = mixture.GetMoles(Gas.Oxygen);

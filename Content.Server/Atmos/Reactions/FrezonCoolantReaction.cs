@@ -10,7 +10,7 @@ namespace Content.Server.Atmos.Reactions;
 [UsedImplicitly]
 public sealed partial class FrezonCoolantReaction : IGasReactionEffect
 {
-    public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem)
+    public ReactionResult React<THolder>(GasMixture mixture, THolder? holder, AtmosphereSystem atmosphereSystem)
     {
         var oldHeatCapacity = atmosphereSystem.GetHeatCapacity(mixture);
         var temperature = mixture.Temperature;

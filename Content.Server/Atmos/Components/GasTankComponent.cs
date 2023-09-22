@@ -6,7 +6,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 namespace Content.Server.Atmos.Components
 {
     [RegisterComponent]
-    public sealed partial class GasTankComponent : Component, IGasMixtureHolder
+    public sealed partial class GasTankComponent : Component
     {
         public const float MaxExplosionRange = 80f;
         private const float DefaultLowPressure = 0f;

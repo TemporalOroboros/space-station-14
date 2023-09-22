@@ -6,6 +6,6 @@ namespace Content.Server.Atmos
     [ImplicitDataDefinitionForInheritors]
     public partial interface IGasReactionEffect
     {
-        ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder, AtmosphereSystem atmosphereSystem);
+        ReactionResult React<THolder>(GasMixture mixture, THolder? holder, AtmosphereSystem atmosphereSystem);
     }
 }

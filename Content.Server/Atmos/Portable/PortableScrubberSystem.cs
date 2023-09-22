@@ -63,7 +63,7 @@ namespace Content.Server.Atmos.Portable
                 && _nodeContainer.TryGetNode(nodeContainer, component.PortName, out PortablePipeNode? portableNode)
                 && portableNode.ConnectionsEnabled)
             {
-                _atmosphereSystem.React(component.Air, portableNode);
+                _atmosphereSystem.React(component.Air, uid);
                 if (portableNode.NodeGroup is PipeNet {NodeCount: > 1} net)
                     _canisterSystem.MixContainerWithPipeNet(component.Air, net.Air);
             }

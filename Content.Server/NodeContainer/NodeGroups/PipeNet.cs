@@ -7,18 +7,21 @@ using Robust.Shared.Utility;
 
 namespace Content.Server.NodeContainer.NodeGroups
 {
-    public interface IPipeNet : INodeGroup, IGasMixtureHolder
+    public interface IPipeNet : INodeGroup
     {
         /// <summary>
         ///     Causes gas in the PipeNet to react.
         /// </summary>
         void Update();
+
+        /// <summary>The air that this pipenet contains.</summary>
+        public abstract GasMixture Air { get; set; }
     }
 
     [NodeGroup(NodeGroupID.Pipe)]
     public sealed class PipeNet : BaseNodeGroup, IPipeNet
     {
-        [ViewVariables] public GasMixture Air { get; set; } = new() {Temperature = Atmospherics.T20C};
+        [ViewVariables] public GasMixture Air { get; set; } = new() { Temperature = Atmospherics.T20C };
 
         [ViewVariables] private AtmosphereSystem? _atmosphereSystem;
 
@@ -93,7 +96,7 @@ namespace Content.Server.NodeContainer.NodeGroups
 
         public override string GetDebugData()
         {
-            return @$"Pressure: { Air.Pressure:G3}
+            return @$"Pressure: {Air.Pressure:G3}
 Temperature: {Air.Temperature:G3}
 Volume: {Air.Volume:G3}";
         }

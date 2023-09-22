@@ -289,7 +289,7 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Performs reactions for a given gas mixture on an optional holder.
         /// </summary>
-        public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder)
+        public ReactionResult React<THolder>(GasMixture mixture, THolder? holder)
         {
             var reaction = ReactionResult.NoReaction;
             var temperature = mixture.Temperature;
@@ -305,12 +305,14 @@ namespace Content.Server.Atmos.EntitySystems
                 var doReaction = true;
                 for (var i = 0; i < prototype.MinimumRequirements.Length; i++)
                 {
-                    if(i >= Atmospherics.TotalNumberOfGases)
+                    if (i >= Atmospherics.TotalNumberOfGases)
                         throw new IndexOutOfRangeException("Reaction Gas Minimum Requirements Array Prototype exceeds total number of gases!");
 
                     var req = prototype.MinimumRequirements[i];
 
-                    if (!(mixture.GetMoles(i) < req)) continue;
+                    if (!(mixture.GetMoles(i) < req))
+                        continue;
+
                     doReaction = false;
                     break;
                 }
@@ -319,7 +321,7 @@ namespace Content.Server.Atmos.EntitySystems
                     continue;
 
                 reaction = prototype.React(mixture, holder, this);
-                if(reaction.HasFlag(ReactionResult.StopReactions))
+                if (reaction.HasFlag(ReactionResult.StopReactions))
                     break;
             }
 
