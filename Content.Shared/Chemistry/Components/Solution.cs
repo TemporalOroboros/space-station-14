@@ -84,7 +84,7 @@ namespace Content.Shared.Chemistry.Components
         /// <summary>
         ///     The total heat capacity of all reagents in the solution.
         /// </summary>
-        [ViewVariables] private float _heatCapacity;
+        [ViewVariables] private long _heatCapacity;
 
         /// <summary>
         ///     If true, then <see cref="_heatCapacity"/> needs to be recomputed.
@@ -99,8 +99,7 @@ namespace Content.Shared.Chemistry.Components
             _heatCapacity = 0;
             foreach (var (reagent, quantity) in Contents)
             {
-                _heatCapacity += (float) quantity *
-                                 protoMan.Index<ReagentPrototype>(reagent.Prototype).SpecificHeat;
+                _heatCapacity += quantity.Value * protoMan.Index<ReagentPrototype>(reagent.Prototype).SpecificHeat.Value;
             }
         }
 
@@ -108,7 +107,7 @@ namespace Content.Shared.Chemistry.Components
         {
             if (_heatCapacityDirty)
                 UpdateHeatCapacity(protoMan);
-            return _heatCapacity;
+            return _heatCapacity * 1E-4f;
         }
 
         public float GetThermalEnergy(IPrototypeManager? protoMan)
@@ -190,7 +189,7 @@ namespace Content.Shared.Chemistry.Components
                 var cur = _heatCapacity;
                 _heatCapacityDirty = true;
                 UpdateHeatCapacity(null);
-                DebugTools.Assert(MathHelper.CloseTo(_heatCapacity, cur));
+                DebugTools.Assert(_heatCapacity == cur);
             }
 #endif
         }
@@ -377,7 +376,7 @@ namespace Content.Shared.Chemistry.Components
         public void AddReagent(ReagentPrototype proto, ReagentId reagentId, FixedPoint2 quantity)
         {
             AddReagent(reagentId, quantity, false);
-            _heatCapacity += quantity.Float() * proto.SpecificHeat;
+            _heatCapacity += quantity.Value * proto.SpecificHeat.Value;
         }
 
         public void AddReagent(ReagentQuantity reagentQuantity)
@@ -393,9 +392,9 @@ namespace Content.Shared.Chemistry.Components
             if (_heatCapacityDirty)
                 UpdateHeatCapacity(protoMan);
 
-            var totalThermalEnergy = Temperature * _heatCapacity + temperature * proto.SpecificHeat;
+            var totalThermalEnergy = Temperature * _heatCapacity * 1E-4f + temperature * proto.SpecificHeat.Float();
             AddReagent(new ReagentId(proto.ID, data), quantity);
-            Temperature = _heatCapacity == 0 ? 0 : totalThermalEnergy / _heatCapacity;
+            Temperature = _heatCapacity == 0 ? 0f : totalThermalEnergy / (_heatCapacity * 1E-4f);
         }
 
 

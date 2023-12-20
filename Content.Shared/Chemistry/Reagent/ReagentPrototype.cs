@@ -77,8 +77,11 @@ namespace Content.Shared.Chemistry.Reagent
         ///     The specific heat of the reagent.
         ///     How much energy it takes to heat one unit of this reagent by one Kelvin.
         /// </summary>
+        /// <remarks>
+        ///     This is a <see cref="FixedPoint2"/> because if we use floats the thermal energy of solutions become affected by rounding errors.
+        /// </remarks>
         [DataField]
-        public float SpecificHeat { get; private set; } = 1.0f;
+        public FixedPoint2 SpecificHeat { get; private set; } = 1;
 
         [DataField]
         public float? BoilingPoint { get; private set; }
