@@ -21,6 +21,9 @@ using Content.Shared.Module;
 using Content.Client.Guidebook;
 using Content.Client.Replay;
 using Content.Shared.Administration.Managers;
+using Content.Shared.Chat2.Managers;
+using ClientChatManager = Content.Client.Chat2.Managers.ChatManager;
+using IClientChatManager = Content.Client.Chat2.Managers.IChatManager;
 
 
 namespace Content.Client.IoC
@@ -31,6 +34,8 @@ namespace Content.Client.IoC
         {
             IoCManager.Register<IParallaxManager, ParallaxManager>();
             IoCManager.Register<IChatManager, ChatManager>();
+            IoCManager.Register<IClientChatManager, ClientChatManager>();
+            IoCManager.Register<ISharedChatManager, ClientChatManager>();
             IoCManager.Register<IClientPreferencesManager, ClientPreferencesManager>();
             IoCManager.Register<IStylesheetManager, StylesheetManager>();
             IoCManager.Register<IScreenshotHook, ScreenshotHook>();

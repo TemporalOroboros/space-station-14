@@ -29,6 +29,7 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using IServerChatManager = Content.Server.Chat2.Managers.IChatManager;
 
 namespace Content.Server.Entry
 {
@@ -115,6 +116,7 @@ namespace Content.Server.Entry
 
             IoCManager.Resolve<IChatSanitizationManager>().Initialize();
             IoCManager.Resolve<IChatManager>().Initialize();
+            IoCManager.Resolve<IServerChatManager>().Initialize();
             var configManager = IoCManager.Resolve<IConfigurationManager>();
             var resourceManager = IoCManager.Resolve<IResourceManager>();
             var dest = configManager.GetCVar(CCVars.DestinationFile);
@@ -141,6 +143,13 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<GameTicker>().PostInitialize();
                 IoCManager.Resolve<IBanManager>().Initialize();
             }
+        }
+
+        public override void Shutdown()
+        {
+            IoCManager.Resolve<IServerChatManager>().Shutdown();
+
+            base.Shutdown();
         }
 
         public override void Update(ModUpdateLevel level, FrameEventArgs frameEventArgs)

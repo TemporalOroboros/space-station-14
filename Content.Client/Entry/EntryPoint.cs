@@ -35,6 +35,7 @@ using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
+using IClientChatManager = Content.Client.Chat2.Managers.IChatManager;
 
 namespace Content.Client.Entry
 {
@@ -58,6 +59,7 @@ namespace Content.Client.Entry
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IOverlayManager _overlayManager = default!;
         [Dependency] private readonly IChatManager _chatManager = default!;
+        [Dependency] private readonly IClientChatManager _chatManager2 = default!;
         [Dependency] private readonly IClientPreferencesManager _clientPreferencesManager = default!;
         [Dependency] private readonly EuiManager _euiManager = default!;
         [Dependency] private readonly IVoteManager _voteManager = default!;
@@ -156,6 +158,7 @@ namespace Content.Client.Entry
             _overlayManager.AddOverlay(new FlashOverlay());
             _overlayManager.AddOverlay(new RadiationPulseOverlay());
             _chatManager.Initialize();
+            _chatManager2.Initialize();
             _clientPreferencesManager.Initialize();
             _euiManager.Initialize();
             _voteManager.Initialize();
@@ -176,6 +179,13 @@ namespace Content.Client.Entry
             _userInterfaceManager.MainViewport.Visible = false;
 
             SwitchToDefaultState();
+        }
+
+        public override void Shutdown()
+        {
+            _chatManager2.Shutdown();
+
+            base.Shutdown();
         }
 
         private void SwitchToDefaultState(bool disconnected = false)

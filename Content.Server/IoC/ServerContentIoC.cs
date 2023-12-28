@@ -21,7 +21,10 @@ using Content.Server.Voting.Managers;
 using Content.Server.Worldgen.Tools;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Administration.Managers;
+using Content.Shared.Chat2.Managers;
 using Content.Shared.Kitchen;
+using IServerChatManager = Content.Server.Chat2.Managers.IChatManager;
+using ServerChatManager = Content.Server.Chat2.Managers.ChatManager;
 
 namespace Content.Server.IoC
 {
@@ -31,6 +34,8 @@ namespace Content.Server.IoC
         {
             IoCManager.Register<IChatManager, ChatManager>();
             IoCManager.Register<IChatSanitizationManager, ChatSanitizationManager>();
+            IoCManager.Register<IServerChatManager, ServerChatManager>();
+            IoCManager.Register<ISharedChatManager, ServerChatManager>();
             IoCManager.Register<IMoMMILink, MoMMILink>();
             IoCManager.Register<IServerPreferencesManager, ServerPreferencesManager>();
             IoCManager.Register<IServerDbManager, ServerDbManager>();
