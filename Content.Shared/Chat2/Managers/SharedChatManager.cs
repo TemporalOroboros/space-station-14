@@ -8,7 +8,12 @@ namespace Content.Shared.Chat2.Managers;
 /// <seealso cref="ISharedChatManager"/>
 public abstract partial class SharedChatManager : ISharedChatManager
 {
-    public virtual void Initialize() { }
+    [Dependency] protected readonly INetManager NetManager = default!;
+
+    public virtual void Initialize()
+    {
+        IoCManager.InjectDependencies(this);
+    }
 
     public virtual void Shutdown() { }
 }
