@@ -99,7 +99,7 @@ public sealed partial class GunSystem : SharedGunSystem
 
             var ent = Spawn(HitscanProto, coords);
             var sprite = Comp<SpriteComponent>(ent);
-            TransformSystem.SetLocalRotation(ent, a.angle);
+            TransformSystem.SetLocalRotationNoLerp(ent, a.angle);
             sprite[EffectLayers.Unshaded].AutoAnimated = false;
             sprite.LayerSetSprite(EffectLayers.Unshaded, rsi);
             sprite.LayerSetState(EffectLayers.Unshaded, rsi.RsiState);
