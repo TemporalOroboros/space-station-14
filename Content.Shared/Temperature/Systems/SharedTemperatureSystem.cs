@@ -13,6 +13,9 @@ using System.Linq;
 
 namespace Content.Shared.Temperature.Systems;
 
+/// <summary>
+/// Responsible for handling temperature and heat capacity for entities.
+/// </summary>
 public abstract partial class SharedTemperatureSystem : EntitySystem
 {
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;

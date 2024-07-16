@@ -4,6 +4,10 @@ using Content.Shared.Temperature.Systems;
 
 namespace Content.Server.Temperature.Systems;
 
+/// <summary>
+/// <inheritdoc/>
+/// Also handles temperature "exchange" with the surrounding environment.
+/// </summary>
 public sealed partial class TemperatureSystem : SharedTemperatureSystem
 {
     [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
