@@ -133,13 +133,14 @@
   components:
   - type: AtmosExposed
   - type: Temperature
+    currentTemperature: 310.15
+    specificHeat: 42
+  - type: TemperatureDamageThresholds
     heatDamageThreshold: 325
     coldDamageThreshold: 0
-    currentTemperature: 310.15
     coldDamage: #per second, scales with temperature & other constants
       types:
         Cold : 0.1
-    specificHeat: 42
     heatDamage: #per second, scales with temperature & other constants
       types:
         Heat : 1.5
