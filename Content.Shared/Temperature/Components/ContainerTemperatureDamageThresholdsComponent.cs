@@ -1,11 +1,13 @@
-﻿namespace Content.Shared.Temperature.Components;
+﻿using Robust.Shared.GameStates;
 
-[RegisterComponent]
+namespace Content.Shared.Temperature.Components;
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class ContainerTemperatureDamageThresholdsComponent : Component
 {
-    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
     public float? HeatDamageThreshold;
 
-    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
     public float? ColdDamageThreshold;
 }
